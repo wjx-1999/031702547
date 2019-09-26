@@ -9,7 +9,11 @@ def split_name(s: str):  # 将名字从字符串中提取出来
 
 
 
-def split_num(s: str):  # 将电话号码从字符串提取出来
+def match_tel(s: str):  # Pick up phone number
+    tel = re.search('\d{11}', s).group(0)
+    match = re.split('\d{11}', s)
+    rest_addr = match[0] + match[1]  # join two string
+    return (tel, rest_addr)
 
 
 
