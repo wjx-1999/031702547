@@ -33,6 +33,8 @@ def test(str0 : str):
     thridcut_list = lastaddr.split('街道', 1)
     if len(thridcut_list) > 1:
         thridcut_list[0] += "街道"
+    elif len(lastaddr.split('街', 1)) > 1:
+        thridcut_list[0] += "街"
     else:
         thridcut_list = lastaddr.split('镇', 1)
         if len(thridcut_list) > 1:
@@ -53,8 +55,11 @@ def test(str0 : str):
     info_data = json.dumps(info, ensure_ascii=False)
     print(info_data)
 
-str0 = input()
-str0 = re.split("!",str0)
-level = int(str0[0])
-s = str0[1]
-test(s)
+while 1:
+    str0 = input()
+    if str0 == "END":
+        break
+    str0 = re.split("!",str0)
+    level = int(str0[0])
+    s = str0[1]
+    test(s)
