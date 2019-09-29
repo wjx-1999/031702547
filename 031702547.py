@@ -32,8 +32,6 @@ def address_book(str0 : str):
     addr_rest = lastaddr.split('街道', 1)
     if len(addr_rest) > 1:
         addr_rest[0] += "街道"
-    #elif len(lastaddr.split('街', 1)) > 1:
-       # addr_rest[0] += "街"
     else:
         addr_rest = lastaddr.split('镇', 1)
         if len(addr_rest) > 1:
@@ -43,7 +41,31 @@ def address_book(str0 : str):
             if len(addr_rest) > 1:
                 addr_rest[0] += "乡"
             else:
-                addr_rest.insert(0, '')
+                addr_rest = lastaddr.split('社区', 1)
+                if len(addr_rest) > 1:
+                    addr_rest[0] += "社区"
+                else:
+                    addr_rest = lastaddr.split('村', 1)
+                    if len(addr_rest) > 1:
+                        addr_rest[0] += "村"
+                    else:
+                        addr_rest = lastaddr.split('办事处', 1)
+                        if len(addr_rest) > 1:
+                            addr_rest[0] += "办事处"
+                        else:
+                            addr_rest = lastaddr.split('工业园', 1)
+                            if len(addr_rest) > 1:
+                                addr_rest[0] += "工业园"
+                            else:
+                                addr_rest = lastaddr.split('窝', 1)
+                                if len(addr_rest) > 1:
+                                    addr_rest[0] += "窝"
+                                else:
+                                    addr_rest = lastaddr.split('苏木', 1)
+                                    if len(addr_rest) > 1:
+                                        addr_rest[0] += "苏木"
+                                    else:
+                                        addr_rest.insert(0, '')
     address = newaddr + addr_rest
     info = {
         "姓名": name,
