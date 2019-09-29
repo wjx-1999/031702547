@@ -30,15 +30,15 @@ def test(str0 : str):
         str = newaddr[0].replace('市','')
         newaddr[0] = str
     address = newaddr
-    thridcut_list = lastaddr.split('街道', 1)
+    thridcut_list = lastaddr.split('镇', 1)
     if len(thridcut_list) > 1:
+        thridcut_list[0] += "镇"
+    elif len(lastaddr.split('街道', 1)) > 1:
         thridcut_list[0] += "街道"
-    elif len(lastaddr.split('街', 1)) > 1:
-        thridcut_list[0] += "街"
     else:
-        thridcut_list = lastaddr.split('镇', 1)
+        thridcut_list = lastaddr.split('街', 1)
         if len(thridcut_list) > 1:
-            thridcut_list[0] += "镇"
+            thridcut_list[0] += "街"
         else:
             thridcut_list = lastaddr.split('乡', 1)
             if len(thridcut_list) > 1:
