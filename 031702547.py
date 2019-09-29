@@ -13,45 +13,44 @@ def match_name_tel(s: str):  # get name and phone number
     tel = re.search('\d{11}', match[1]).group(0) #get phone number
     mat = re.split('\d{11}', match[1])
     rest_addr = mat[0] + mat[1]  # join two string
-    #DataFrame = cpca.transform([rest_addr], cut=False, pos_sensitive=True)  # 必须使用列表才能映射
-    DataFrame = cpca.transform([rest_addr])  # 必须使用列表才能映射
+    DataFrame = cpca.transform([rest_addr])  # use the ilst
     return (name, tel, DataFrame)
 
-def test(str0 : str):
+def address_book(str0 : str):
     name, phone, tmp = match_name_tel(str0)
     newaddr = []
-    secondcut_list = tmp.values[0]
-    for addr in secondcut_list:
+    str_rest = tmp.values[0]
+    for addr in str_rest:
         newaddr.append(addr)
-    # 切分街道、镇、乡
+    # split the street\town\village
     lastaddr = newaddr.pop()
 
     if newaddr[0] == '北京市' or'天津市'or'上海市'or '重庆市' :
         str = newaddr[0].replace('市','')
         newaddr[0] = str
     address = newaddr
-    thridcut_list = lastaddr.split('街道', 1)
-    if len(thridcut_list) > 1:
-        thridcut_list[0] += "街道"
-    elif len(lastaddr.split('街', 1)) > 1:
-        thridcut_list[0] += "街"
+    addr_rest = lastaddr.split('街道', 1)
+    if len(addr_rest) > 1:
+        addr_rest[0] += "街道"
+    #elif len(lastaddr.split('街', 1)) > 1:
+       # addr_rest[0] += "街"
     else:
-        thridcut_list = lastaddr.split('镇', 1)
-        if len(thridcut_list) > 1:
-            thridcut_list[0] += "镇"
+        addr_rest = lastaddr.split('镇', 1)
+        if len(addr_rest) > 1:
+            addr_rest[0] += "镇"
         else:
-            thridcut_list = lastaddr.split('乡', 1)
-            if len(thridcut_list) > 1:
-                thridcut_list[0] += "乡"
+            addr_rest = lastaddr.split('乡', 1)
+            if len(addr_rest) > 1:
+                addr_rest[0] += "乡"
             else:
-                thridcut_list.insert(0, '')
-    address = newaddr + thridcut_list
+                addr_rest.insert(0, '')
+    address = newaddr + addr_rest
     info = {
         "姓名": name,
         "手机": phone,
         "地址": address
     }
-    # 编码成json类型数据
+    # get the json type data
     info_data = json.dumps(info, ensure_ascii=False)
     print(info_data)
 
@@ -60,6 +59,6 @@ while 1:
     if str0 == "END":
         break
     str0 = re.split("!",str0)
-    level = int(str0[0])
+    level = int(str0[0]) #get level
     s = str0[1]
-    test(s)
+    address_book(s)
